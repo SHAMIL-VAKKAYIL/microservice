@@ -1,0 +1,17 @@
+syntax ="proto3";
+
+package user;
+
+service UserService{
+    rpc getUserByEmail(getUserReq) returns(userData);
+}
+
+message getUserReq{
+    string email=1;
+}
+
+message userData{
+    string id=1;
+    string email=2;
+    string password=3;
+}
