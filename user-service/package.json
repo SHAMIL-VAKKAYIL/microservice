@@ -4,7 +4,9 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.js"
+    "dev:http": "nodemon server.js",
+    "dev:grpc": "nodemon grpcServer.js",
+    "dev:both": "concurrently \"nodemon server.js\" \"nodemon grpcServer.js\""
   },
   "keywords": [],
   "author": "",
@@ -20,6 +22,7 @@
     "mongoose": "^8.16.3"
   },
   "devDependencies": {
+    "concurrently": "^9.2.0",
     "nodemon": "^3.1.10"
   }
 }
