@@ -20,11 +20,24 @@ server.addService(userPackage.UserService.service, {
         callback(null, {
             id: user._id.toString(),
             email: user.email,
+            username: user.username,
             password: user.password
         })
     },
+    addUser: async (call, callback) => {
+        const { username, email, password } = call.request
+
+        const existing = await userModel.findOne({ email });
+        if (existing) return callback(new Error('Email already exist'), null)
+
+        const newUser = new userModel({ username, email, password })
+        await newUser.save()
+        
+        callback(null, {})
+    }
+
 })
 
-server.bindAsync('0.0.0.0:50051',grpc.ServerCredentials.createInsecure(),()=>{
+server.bindAsync('0.0.0.0:50051', grpc.ServerCredentials.createInsecure(), () => {
     console.log("User gRPC server running on port 50051")
 })
