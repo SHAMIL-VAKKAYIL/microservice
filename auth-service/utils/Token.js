@@ -12,6 +12,4 @@ exports.userToken = (id, res) => {
     return token
 
 }
-// JWT_SCERATE=DKFJGHDSIKFGHSIF
-// NODE_ENV=development
-// NODE_ENV=production
+

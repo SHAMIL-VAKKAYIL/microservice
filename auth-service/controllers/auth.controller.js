@@ -1,43 +1,44 @@
 const client = require("../services/userGrpcClient")
 const bcrypt = require('bcryptjs')
+const { userToken } = require("../utils/Token")
+
+
+
+
 exports.userSignup = async (req, res) => {
     const { username, email, password } = req.body
     try {
+        const salt = await bcrypt.genSalt(10)
+        const hashedpassword = await bcrypt.hash(password, salt)
 
-        // const exuser = await User.findOne({ email: email })
-        // if (exuser) {
-        //     return res.status(400).json('Email already exists')
-        // } else {
-        //     const salt = await bcrypt.genSalt(10)
-        //     const hashedpassword = await bcrypt.hash(password, salt)
+        client.addUser({ username, email, password: hashedpassword }, (err, data) => {
+            if (err) return res.status(401).json({ message: 'Email already exists' })
 
-        //     const newUser = new User({ username, email, password: hashedpassword })
-        //     await newUser.save()
-
-        //     return res.status(201).json({ message: 'User created successfully' });
-        // }
+            res.status(200).json({ message: 'User created successfully' })
+        })
 
     } catch (error) {
         res.status(500).json({ message: 'Error creating user' })
     }
 }
 
+
 exports.userSignin = async (req, res) => {
     const { email, password } = req.body
 
     try {
 
-        client.getUserByEmail({ email }, (err, data) => {
-            if (err || !data) return res.status(401).json({ message: 'User not found' });
+        client.getUserByEmail({ email }, async (err, data) => {
 
-            const isMatch = bcrypt.compare(password, data.password)
+            if (err || !data) return res.status(401).json({ message: 'User not found' });
+            const isMatch = await bcrypt.compare(password, data.password)
             if (!isMatch) return res.status(401).json({ message: 'Invalid credentials' });
-            //         userToken(data._id, res)
-            //         res.status(200).json({
-            //             id: data._id,
-            //             username: data.dataname,
-            //             email: user.email,
-            //         })
+            userToken(data._id, res)
+            res.status(200).json({
+                id: data._id,
+                username: data.username,
+                email: data.email,
+            })
 
         })
     } catch (error) {
