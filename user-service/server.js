@@ -5,11 +5,8 @@ const connectDB = require('./config/db')
 dotenv.config()
 
 const app = express()
-connectDB()
 
-
-
-
+app.use(express.json())
 
 
 app.listen(5004, () => {

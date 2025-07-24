@@ -7,6 +7,7 @@ package user;
 service UserService{
     rpc getUserByEmail(getUserReq) returns(userData);
     rpc addUser(addUserReq) returns(google.protobuf.Empty);
+    rpc getUserById(getUser) returns(user);
 }
 
 message getUserReq{
@@ -18,10 +19,19 @@ message addUserReq{
     string email=2;
     string password=3;
 }
+message getUser{
+    string id=1;
+}
 
 message userData{
     string id=1;
     string email=2;
     string username=3;
     string password=4;
+}
+
+message user{
+    string id=1;
+    string email=2;
+    string username=3;
 }
