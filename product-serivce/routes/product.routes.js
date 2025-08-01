@@ -1,11 +1,12 @@
-const { addProduct, getAllProduct, getSinlgeProduct, deleteProduct } = require('../controllers/product.controller')
+import express from 'express'
+import {addProduct, deleteProduct, getAllProduct, getSinlgeProduct,} from '../controllers/product.controller.js'
+import multer from '../middlewares/multer.js'
 
-const router =require('express').Router()
+const router =express.Router()
 
+router.post('/addProduct', multer.array('images',5), addProduct)
+router.get('/getAllProduct', getAllProduct)
+router.get('/productById/:id', getSinlgeProduct)
+router.delete('/deleteProduct/:id', deleteProduct)
 
-router.post('/addProduct',addProduct)
-router.get('/getAllProduct',getAllProduct)
-router.get('/productById',getSinlgeProduct)
-router.delete('/deleteProduct',deleteProduct)
-
-module.exports=router
+export default router

@@ -1,5 +1,4 @@
-const cloudinary =require('cloudinary').v2
-
+import {v2 as cloudinary} from 'cloudinary'
 
 cloudinary.config({
     cloud_name:process.env.cloud_name,
@@ -7,6 +6,4 @@ cloudinary.config({
     api_secret:process.env.api_secret
 })
 
-module.exports=cloudinary
-
-// ENV VAR-CLOUDINARY_URL=cloudinary://136977148551418:e1DHAmoNWr0Uo3T13Qp_CCOdhWo@dhxjft7iu
+export default cloudinary

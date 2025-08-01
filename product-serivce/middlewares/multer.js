@@ -1,6 +1,5 @@
-const multer = require('multer')
-const path = require('path')
-
+import multer from 'multer'
+import path from 'path'
 
 //! temporary storage
 const storage = multer.diskStorage({})
@@ -16,4 +15,4 @@ const fileFilter = (req, file, cb) => {
 
 
 
-module.exports=multer({storage,fileFilter})
+export default multer({storage,fileFilter})
