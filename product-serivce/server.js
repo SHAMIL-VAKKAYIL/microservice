@@ -28,7 +28,6 @@ const startServer = async () => {
     const server = new ApolloServer({
         schema: buildSubgraphSchema({ typeDefs, resolvers })
     })
-
     await server.start()
 
     app.use('/api/product', productRouter)

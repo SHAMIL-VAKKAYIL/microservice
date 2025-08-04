@@ -1,27 +1,45 @@
 import productModel from "../models/product.model.js"
 import cloudinary from '../utils/cloudinary.js'
 
+import fs from 'fs'
+
+
 export const addProduct = async (req, res) => {
     const productData = req.body
 
-    const { name, description, price, stocks, size } = productData
+    const { name, description, price, stocks, size,category } = productData
     try {
-        const imageArray=[]
+        const imageArray = []
 
-        for(const file of req.files){
-            const result = await cloudinary.uploader.upload(file.path)
+        for (const file of req.files) {
+            //! const result = await cloudinary.uploader.upload(file.path)
 
-            fs.unlinkSync(file.path) //! removing temp file after uploding ^
+            // fs.unlinkSync(file.path) //! removing temp file after uploding ^
 
+            //? for testing
             imageArray.push({
-                url:result.secure_url,
-                alt:result.original_filename
-            })
+                url: 'https://mocked.cloudinary.com/fake-image.jpg',
+                alt: file.originalname
+            });
+
+            // imageArray.push({
+            //     url: result.secure_url,
+            //     alt: result.original_filename
+            // })
 
         }
-        const product = new productModel({ name, description, size, price, images:imageArray, stocks })
+        const product = new productModel({ name, description, size, price, images: imageArray, stocks ,category})
         await product.save()
         res.status(201).json({ message: 'Product added successfully' })
+
+
+         //? for testing
+        for (const file of req.files) {
+            fs.unlink(file.path, (err) => {
+                if (err) console.error(`Failed to delete ${file.path}`, err);
+            }); 
+
+        }
 
     } catch (error) {
         console.log(error);
