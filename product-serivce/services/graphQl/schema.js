@@ -6,7 +6,8 @@ type Product{
     name: String!
     price: Float!
     size: String!
-    Stock: Float!
+    stocks: Float!
+    category: String
     description:String!
     active:Boolean
 }

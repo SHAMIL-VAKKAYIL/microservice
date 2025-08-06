@@ -4,18 +4,16 @@ import cors from 'cors';
 
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
+import { buildSubgraphSchema } from '@apollo/subgraph';
 
 import typeDefs from './services/graphQl/schema.js';
 import resolvers from './services/graphQl/resolver.js';
-
 import connectDB from './config/db.js';
 import productRouter from './routes/product.routes.js';
-import { buildSubgraphSchema } from '@apollo/subgraph';
 
 dotenv.config();
 
 const app = express()
-connectDB()
 
 app.use(express.json())
 app.use(cors({
@@ -25,9 +23,12 @@ app.use(cors({
 
 const startServer = async () => {
 
+   await connectDB()
+
     const server = new ApolloServer({
         schema: buildSubgraphSchema({ typeDefs, resolvers })
     })
+
     await server.start()
 
     app.use('/api/product', productRouter)
@@ -36,5 +37,10 @@ const startServer = async () => {
     app.listen(5003, () => {
         console.log('server is runnig on 5003');
     })
+
+    return app
 }
+
 startServer()
+
+// export { startServer }

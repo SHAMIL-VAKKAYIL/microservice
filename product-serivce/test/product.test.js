@@ -23,13 +23,15 @@ connectDB();
 app.use('/api/product', productRouter);
 
 //! get all product
-// describe('pruduct routes',()=>{
-//     it('should reutrn all product',async()=>{
-//         const res =await request(app).get('/api/product/getAllProduct')
-//         expect(res.statusCode).toBe(200)
-//         expect(res.body).toBeInstanceOf(Array)
-//     })
-// })
+describe('pruduct routes',()=>{
+    it('should reutrn all product',async()=>{
+        const res =await request(app).get('/api/product/getAllProduct')
+        // console.log(res);
+        
+        expect(res.statusCode).toBe(200)
+        expect(res.body).toBeInstanceOf(Array)
+    })
+})
 
 
 //! add product
@@ -37,12 +39,12 @@ app.use('/api/product', productRouter);
 //   it('should add a product with images', async () => {
 //     const res = await request(app)
 //       .post('/api/product/addProduct')
-//       .field('name', 'Test Product2')
-//       .field('category','electronic')
-//       .field('description', 'A test product2')
-//       .field('price', 100)
-//       .field('size', 'M')
-//       .field('stocks', 10)
+//       .field('name', 'Product3')
+//       .field('category','Dress')
+//       .field('description', 'A test dress 3')
+//       .field('price', 600)
+//       .field('size', 'L')
+//       .field('stocks', 23)
 //       .attach('images', path.join(__dirname, 'test11.png'))
 //       .attach('images', path.join(__dirname, 'test12.png'));
 //     expect(res.statusCode).toBe(201);

@@ -12,20 +12,20 @@ export const addProduct = async (req, res) => {
         const imageArray = []
 
         for (const file of req.files) {
-            //! const result = await cloudinary.uploader.upload(file.path)
+             const result = await cloudinary.uploader.upload(file.path)
 
-            // fs.unlinkSync(file.path) //! removing temp file after uploding ^
+            fs.unlinkSync(file.path) //! removing temp file after uploding ^
 
             //? for testing
-            imageArray.push({
-                url: 'https://mocked.cloudinary.com/fake-image.jpg',
-                alt: file.originalname
-            });
-
             // imageArray.push({
-            //     url: result.secure_url,
-            //     alt: result.original_filename
-            // })
+            //     url: 'https://mocked.cloudinary.com/fake-image.jpg',
+            //     alt: file.originalname
+            // });
+
+            imageArray.push({
+                url: result.secure_url,
+                alt: result.original_filename
+            })
 
         }
         const product = new productModel({ name, description, size, price, images: imageArray, stocks ,category})
@@ -34,12 +34,11 @@ export const addProduct = async (req, res) => {
 
 
          //? for testing
-        for (const file of req.files) {
-            fs.unlink(file.path, (err) => {
-                if (err) console.error(`Failed to delete ${file.path}`, err);
-            }); 
-
-        }
+        // for (const file of req.files) {
+        //     fs.unlink(file.path, (err) => {
+        //         if (err) console.error(`Failed to delete ${file.path}`, err);
+        //     }); 
+        // }
 
     } catch (error) {
         console.log(error);
