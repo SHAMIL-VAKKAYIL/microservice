@@ -1,10 +1,10 @@
-import jwt from 'jsonwebtoken'
-import client from '../services/userGrpcClient'
-import {promisify} from 'util'
+const jwt = require('jsonwebtoken')
+const client = require('../auth-service/services/userGrpcClient')
+const { promisify } = require('util')
 
 const getUserByIdAsync = promisify(client.getUserById).bind(client)
 
-export const userProtectRoute = async (req, res, next) => {
+exports.userProtectRoute = async (req, res, next) => {
     try {
 
         let token;
@@ -23,7 +23,7 @@ export const userProtectRoute = async (req, res, next) => {
         }
 
         const decoded = jwt.verify(token, process.env.JWT_SCERATE)
-        console.log("Decoded token ID:", decoded.id);
+        // console.log("Decoded token ID:", decoded.id);
 
         if (!decoded) {
             return res.status(401).json({ msg: "Token verification failed" })
@@ -35,16 +35,20 @@ export const userProtectRoute = async (req, res, next) => {
 
 
         if (!data) {
-            console.log('wzexrdcftvgybhu');
-
             return res.status(401).json({ msg: "User not found" });
         }
         req.user = data
         next()
 
     } catch (error) {
-        console.error(error)
-        res.status(500).json({ msg: "Server error" })
+       res.status(401).json({ msg: "Invalid Token" });
 
     }
+}
+
+exports.adminProtectRoute = async (req, res, next) => {
+    if (req?.user?.role == !'admin') {
+        return res.status(403).json({ msg: "Access denied. Admins only." });
+    }
+    next()
 }

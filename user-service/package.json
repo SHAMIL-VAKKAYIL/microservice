@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "NODE_OPTIONS=--experimental-vm-modules pnpm exec jest",
     "dev:http": "nodemon server.js",
     "dev:grpc": "nodemon grpcServer.js",
     "dev:both": "concurrently \"nodemon server.js\" \"nodemon grpcServer.js\""
@@ -16,6 +16,7 @@
     "@grpc/grpc-js": "^1.13.4",
     "@grpc/proto-loader": "^0.7.15",
     "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
     "dotenv": "^17.2.0",
     "express": "^5.1.0",
     "google-proto-files": "^5.0.0",
@@ -24,6 +25,8 @@
   },
   "devDependencies": {
     "concurrently": "^9.2.0",
-    "nodemon": "^3.1.10"
+    "jest": "^30.0.5",
+    "nodemon": "^3.1.10",
+    "supertest": "^7.1.4"
   }
 }
