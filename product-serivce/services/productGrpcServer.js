@@ -31,15 +31,14 @@ server.addService(productPackage.ProductService.service, {
 
         return callback(null, orderItem)
 
-
     }
 })
 
     (async () => {
         try {
             await connectDB();
-            server.bindAsync('0.0.0.0:5003', grpc.ServerCredentials.createInsecure(), () => {
-                console.log("User gRPC server running on port 50051");
+            server.bindAsync('0.0.0.0:50058', grpc.ServerCredentials.createInsecure(), () => {
+                console.log("User gRPC server running on port 50058");
             })
         } catch (error) {
             console.error("Failed to connect DB in grpcServer:", error.message);

@@ -26,7 +26,7 @@ quantity: Int!
 
 type Query{
     orders:[Order!]!
-    myOrders:[Order!]!
+    myOders:[Order!]!
     singleOrder(id:ID!):Order
 }
 
