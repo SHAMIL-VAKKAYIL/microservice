@@ -48,11 +48,15 @@ const startServer = async () => {
         context,
     })
     await server.start()
-    app.use('/graphql/order', bodyParser.json(), expressMiddleware(server));
+
+    app.use('/graphql', bodyParser.json(), expressMiddleware(server));
 
     app.listen(5005, () => {
         console.log('server is runnig on 5005');
     })
+    return app
 }
 
-startServer()
+// startServer()
+
+module.exports = { startServer }
