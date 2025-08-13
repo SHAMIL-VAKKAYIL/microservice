@@ -3,7 +3,7 @@ const protoLoader = require('@grpc/proto-loader')
 const path = require('path')
 
 
-const packageDef = protoLoader.loadSync(path.join(__dirname, '../../protos/roduct.proto'), {
+const packageDef = protoLoader.loadSync(path.join(__dirname, '../../protos/product.proto'), {
     keepCase: true,
     longs: String,
     enums: String,
@@ -13,7 +13,7 @@ const packageDef = protoLoader.loadSync(path.join(__dirname, '../../protos/roduc
 const productProto = grpc.loadPackageDefinition(packageDef)
 const productPackage = productProto.product
 
-const client = new productPackage.service(
+const client = new productPackage.ProductService(
     'localhost:50059',
     grpc.credentials.createInsecure()
 )

@@ -4,10 +4,10 @@ const client = require('../grpcProductClient');
 
 const resolver = {
     Query: {
-        order: async () => {
+        orders: async () => {
             return await orderModel.find()
         },
-        myOders: async (_, _, { user }) => {
+        myOders: async (_, {}, { user }) => {
             if (!user) throw new Error("Authentication required");
             return await orderModel.find({ userId: user.id })
         },

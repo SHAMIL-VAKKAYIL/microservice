@@ -1,5 +1,6 @@
 const express = require('express')
 const dotenv = require('dotenv')
+const bodyParser = require('body-parser')
 
 const { ApolloServer } = require('@apollo/server')
 const { expressMiddleware } = require('@apollo/server/express4')
@@ -47,6 +48,7 @@ const startServer = async () => {
         context,
     })
     await server.start()
+    app.use('/graphql/order', bodyParser.json(), expressMiddleware(server));
 
     app.listen(5005, () => {
         console.log('server is runnig on 5005');
