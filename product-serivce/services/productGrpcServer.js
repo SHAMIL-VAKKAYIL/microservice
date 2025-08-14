@@ -1,42 +1,70 @@
 import grpc from '@grpc/grpc-js'
 import protoLoader from '@grpc/proto-loader'
-import path from 'path'
-import productModel from '../models/product.model'
-import connectDB from '../config/db'
+import dotenv from 'dotenv'
 
-const packageDef = protoLoader.loadSync(path.join(__dirname, '../../protos/product.proto'), {
-    keepCase: true,
-    longs: String,
-    enums: String,
-    defaults: true,
-    oneofs: true
-})
+dotenv.config()
 
+import productModel from '../models/product.model.js'
+import connectDB from '../config/db.js'
+
+import { fileURLToPath } from 'url';
+import path from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+
+
+const packageDef = protoLoader.loadSync(path.join(__dirname, '../../protos/product.proto'),{})
 const productProto = grpc.loadPackageDefinition(packageDef)
 const productPackage = productProto.product
 
-const server = new grpc.Server()
+// // console.log(productProto?.ProductService);
+const server = new grpc.Server();
+
+// server.addService(productPackage.ProductService.service, {
+//     productsById: async (call, callback) => {
+//         const { id } = call.request;
+//         const product = await productModel.findById(id);
+//         if (!product) return callback(new Error(`Product ${id} not found`), null);
+
+//         const orderItem = {
+//             productId: product._id,
+//             name: product.name,
+//             price: product.price,
+//         };
+
+//         return callback(null, orderItem);
+
+//     }
+
+// })
+
+connectDB();
 
 server.addService(productPackage.ProductService.service, {
-    productsById: async (call, callback) => {
-        const { id } = call.request
-        const product = await productModel.findById(id);
-        if (!product) return callback(new Error(`Product ${product?._id} not found`), null);
+  productsById: async (call, callback) => {
+    const { id } = call.request;
+    
+    const product = await productModel.findById(id);
+    if (!product) return callback(new Error(`Product ${id} not found`), null);
 
-        const orderItem = {
-            productId: product._id,
-            name: product.name,
-            price: product.price,
-        }
+    const orderItem = {
+      id: product._id,
+      name: product.name,
+      price: product.price,
+    };
+    console.log(orderItem);
+    
 
-        return callback(null, orderItem)
+    return callback(null, orderItem);
+  }
+});
 
-    }
-})
 
     (async () => {
+
         try {
-            await connectDB();
             server.bindAsync('0.0.0.0:50058', grpc.ServerCredentials.createInsecure(), () => {
                 console.log("User gRPC server running on port 50058");
             })
@@ -45,3 +73,5 @@ server.addService(productPackage.ProductService.service, {
 
         }
     })()
+
+

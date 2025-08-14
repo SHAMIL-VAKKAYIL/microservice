@@ -34,23 +34,23 @@ describe('pruduct routes',()=>{
 })
 
 
-//! add product
-// describe('POST /addProduct', () => {
-//   it('should add a product with images', async () => {
-//     const res = await request(app)
-//       .post('/api/product/addProduct')
-//       .field('name', 'Product3')
-//       .field('category','Dress')
-//       .field('description', 'A test dress 3')
-//       .field('price', 600)
-//       .field('size', 'L')
-//       .field('stocks', 23)
-//       .attach('images', path.join(__dirname, 'test11.png'))
-//       .attach('images', path.join(__dirname, 'test12.png'));
-//     expect(res.statusCode).toBe(201);
-//     expect(res.body).toHaveProperty('message', 'Product added successfully');
-//   });
-// });
+// ! add product
+describe('POST /addProduct', () => {
+  it('should add a product with images', async () => {
+    const res = await request(app)
+      .post('/api/product/addProduct')
+      .field('name', 'Product3')
+      .field('category','Dress')
+      .field('description', 'A test dress 3')
+      .field('price', 600)
+      .field('size', 'L')
+      .field('stocks', 23)
+      .attach('images', path.join(__dirname, 'test11.png'))
+      .attach('images', path.join(__dirname, 'test12.png'));
+    expect(res.statusCode).toBe(201);
+    expect(res.body).toHaveProperty('message', 'Product added successfully');
+  });
+});
 
 //! product by Id
 // describe(' product by Id ',()=>{

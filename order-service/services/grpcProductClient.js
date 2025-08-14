@@ -14,7 +14,7 @@ const productProto = grpc.loadPackageDefinition(packageDef)
 const productPackage = productProto.product
 
 const client = new productPackage.ProductService(
-    'localhost:50059',
+    'localhost:50058',
     grpc.credentials.createInsecure()
 )
 

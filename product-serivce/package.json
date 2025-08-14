@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "test": "NODE_OPTIONS=--experimental-vm-modules pnpm exec jest",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "dev:both": "concurrently \"nodemon services/productGrpcServer.js\" \"nodemon server.js\" "
+
   },
   "keywords": [],
   "author": "",
@@ -19,6 +21,7 @@
     "bcrypt": "^6.0.0",
     "body-parser": "^2.2.0",
     "cloudinary": "^2.7.0",
+    "concurrently": "^9.2.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^17.2.0",

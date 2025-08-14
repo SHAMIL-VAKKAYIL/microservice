@@ -1,13 +1,14 @@
 const orderModel = require('../../models/order.model');
 const client = require('../grpcProductClient');
+const { promisify } = require('util')
 
-
+const productsByIdAsync = promisify(client.productsById)
 const resolver = {
     Query: {
         orders: async () => {
             return await orderModel.find()
         },
-        myOders: async (_, {}, { user }) => {
+        myOders: async (_, { }, { user }) => {
             if (!user) throw new Error("Authentication required");
             return await orderModel.find({ userId: user.id })
         },
@@ -18,30 +19,25 @@ const resolver = {
     },
     Mutation: {
         createOrder: async (_, { items }, { user }) => {
-            let orderItems = []
-            let totalPrice
 
-            for (let item of items) {
-                client.productsById({ id: items.productId }, (err, data) => {
-                    if (err) {
-                        console.error("Error fetching product:", err);
-                        return
-                    }
-                    const orderItem = {
+
+            const products = await Promise.all(
+
+                items.map(async (item) => {
+                    const data = await client.productsByIdAsync({ id: item.productId })
+                    return {
                         productId: data.id,
                         name: data.name,
                         price: data.price,
                         quantity: item.quantity
                     }
-
-                    orderItems.push(orderItem)
-                    totalPrice += data.price * item.quantity
-
                 })
-            }
+            )
+            const totalPrice = products.reduce((sum, p) => sum + p.price * p.quantity, 0);
+
             const order = new orderModel({
                 userId: user.id,
-                products: orderItems,
+                products,
                 status: 'Pending',
                 total: totalPrice,
 

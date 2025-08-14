@@ -28,6 +28,7 @@ export const addProduct = async (req, res) => {
             })
 
         }
+
         const product = new productModel({ name, description, size, price, images: imageArray, stocks ,category})
         await product.save()
         res.status(201).json({ message: 'Product added successfully' })

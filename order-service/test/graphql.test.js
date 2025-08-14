@@ -69,14 +69,17 @@ describe('order graphql', () => {
         const query = `
         mutation {
                 createOrder(items: [
-                    { productId: "prod_101", quantity: 2 }
-                    { productId: "prod_202", quantity: 1 }
-                ])
-            }
+                    { productId: "688f30f52a9d045caa6f50b9", quantity: 2 }
+                    { productId: "6893681bd23b667f167df447", quantity: 1 }
+                ]){
+                    id
+                    status
+                    totalPrice
+                }
         }`
 
         const res =await request(app).post('/graphql').send({ query }).set('Content-Type', 'application/json')
-        console.log(res.body.data.createOrder);
+        console.log(res.body);
         expect(res.statusCode).toBe(200);
     })
 })
