@@ -4,6 +4,8 @@ const { promisify } = require('util')
 
 const getUserByIdAsync = promisify(client.getUserById).bind(client)
 
+module.exports= getUserByIdAsync
+
 exports.userProtectRoute = async (req, res, next) => {
     try {
 

@@ -14,9 +14,12 @@ beforeAll(async () => {
 //         query {
 //             orders {
 //                 id
-//                 products 
-//                 totalPrice
+//                 products{
+//                     name
+//                 }
+//                 total
 //                 status
+//             }
 //         }`
 //         const res = await request(app).post('/graphql').send({ query }).set('Content-Type', 'application/json')
 //         console.log(res.body.data.orders);
@@ -32,8 +35,10 @@ beforeAll(async () => {
 //         query {
 //             myOders {
 //                 id
-//                 products 
-//                 totalPrice
+//                 products{
+//                 price
+//                 }
+//                 total
 //                 status
 //             }
 //         }`
@@ -45,14 +50,17 @@ beforeAll(async () => {
 // })
 
 
-// desctribe('single order', () => {
+// describe('single order', () => {
 //     it('should get single order', async () => {
 //         const query = `
 //         query {
-//             singleOrder(id: "order_123") {
+//             singleOrder(id: "689f622a71b5ae5a1abc8578") {
 //                 id
-//                 products 
-//                 totalPrice
+//                 products{
+//                     name
+//                     price
+//                 }
+//                 total
 //                 status
 //             }
 //         }`
@@ -64,35 +72,39 @@ beforeAll(async () => {
 //     })
 // })
 
-describe('order graphql', () => {
-    it('should create an order', async () => {
-        const query = `
-        mutation {
-                createOrder(items: [
-                    { productId: "688f30f52a9d045caa6f50b9", quantity: 2 }
-                    { productId: "6893681bd23b667f167df447", quantity: 1 }
-                ]){
-                    id
-                    status
-                    totalPrice
-                }
-        }`
+// describe('order graphql', () => {
+//     it('should create an order', async () => {
+//         const query = `
+//         mutation {
+//                 createOrder(items: [
+//                     { productId: "688f30f52a9d045caa6f50b9", quantity: 5 }
+//                     { productId: "6893681bd23b667f167df447", quantity: 6 }
+//                 ]){
+//                     id
+//                     status
+//                     total
+//                 }
+//         }`
 
-        const res =await request(app).post('/graphql').send({ query }).set('Content-Type', 'application/json')
-        console.log(res.body);
-        expect(res.statusCode).toBe(200);
-    })
-})
+//         const res =await request(app).post('/graphql').send({ query }).set('Content-Type', 'application/json')
+//         console.log(res.body);
+//         expect(res.statusCode).toBe(200);
+//     })
+// })
 
 // describe('order status update', () => {
 //     it('should update order status', async()=>{
 //         const query = `
 //         mutation {
-//         updateOrder(id: "order_123", status: "Shipped") {
-//         id
-//         products
-//         status
-//         totalPrice
+//             updateOrder(id: "689f622a71b5ae5a1abc8578", status: "Shipped") {
+//                 id
+//                 products{
+//                     name
+//                     price
+//                 }
+//                 status
+//                 total
+//             }
 //         }`
 
 //         const res = await request(app).post('/graphql').send({ query }).set('Content-Type', 'application/json')

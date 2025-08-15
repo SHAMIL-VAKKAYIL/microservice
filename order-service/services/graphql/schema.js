@@ -13,7 +13,7 @@ type OrderItem {
 type Order {
     id: ID!
     products: [OrderItem!]!
-    totalPrice: Float!
+    total: Float!
     status: String!
     createdAt: String
     updatedAt: String

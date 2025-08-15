@@ -19,26 +19,8 @@ const packageDef = protoLoader.loadSync(path.join(__dirname, '../../protos/produ
 const productProto = grpc.loadPackageDefinition(packageDef)
 const productPackage = productProto.product
 
-// // console.log(productProto?.ProductService);
 const server = new grpc.Server();
 
-// server.addService(productPackage.ProductService.service, {
-//     productsById: async (call, callback) => {
-//         const { id } = call.request;
-//         const product = await productModel.findById(id);
-//         if (!product) return callback(new Error(`Product ${id} not found`), null);
-
-//         const orderItem = {
-//             productId: product._id,
-//             name: product.name,
-//             price: product.price,
-//         };
-
-//         return callback(null, orderItem);
-
-//     }
-
-// })
 
 connectDB();
 
@@ -54,13 +36,14 @@ server.addService(productPackage.ProductService.service, {
       name: product.name,
       price: product.price,
     };
+
     console.log(orderItem);
+    
     
 
     return callback(null, orderItem);
   }
 });
-
 
     (async () => {
 
