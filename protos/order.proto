@@ -1,0 +1,17 @@
+syntax ="proto3";
+
+package order;
+
+service OrderService{
+    rpc getOrderById(GetOrderReq) returns(OrderRes);
+}
+
+message GetOrderReq{
+   string id=1;
+}
+
+message OrderRes{
+    string id=1;
+    double total=2;
+    string status=3;
+}

@@ -4,7 +4,8 @@
   "main": "server.js",
   "scripts": {
     "test": "NODE_OPTIONS=--experimental-vm-modules pnpm exec jest",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "dev:both": "concurrently \"nodemon services/grpcOrderserver.js\" \"nodemon server.js\" "
   },
   "keywords": [],
   "author": "",
@@ -16,6 +17,7 @@
     "@grpc/proto-loader": "^0.8.0",
     "bcrypt": "^6.0.0",
     "body-parser": "^2.2.0",
+    "concurrently": "^9.2.0",
     "cookie-parser": "^1.4.7",
     "dotenv": "^17.2.0",
     "express": "^5.1.0",
