@@ -1,6 +1,9 @@
 const grpc = require('@grpc/grpc-js')
 const protoLoader = require('@grpc/proto-loader')
 const path = require('path')
+const dotenv =require('dotenv')
+
+dotenv.config()
 const connectDB = require('../config/db')
 const orderModel = require('../models/order.model')
 
@@ -10,7 +13,6 @@ const orderProto = grpc.loadPackageDefinition(packageDef)
 const orderPackage = orderProto.order
 
 const server = new grpc.Server();
-connectDB()
 
 
 server.addService(orderPackage.OrderService.service, {
@@ -27,14 +29,15 @@ server.addService(orderPackage.OrderService.service, {
         return callback(null, orderResponse)
 
     }
-})
+});
 
     (async () => {
         try {
+            await connectDB()
             server.bindAsync('0.0.0.0:50055', grpc.ServerCredentials.createInsecure(), () => {
                 console.log("Order gRPC server running on port 50055");
             })
         } catch (error) {
             console.error("Failed to connect DB in grpcServer:", error.message);
         }
-    })
+    })();
