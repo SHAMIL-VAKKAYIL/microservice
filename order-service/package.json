@@ -15,6 +15,7 @@
     "@apollo/server": "^4.12.2",
     "@grpc/grpc-js": "^1.13.4",
     "@grpc/proto-loader": "^0.8.0",
+    "axios": "^1.11.0",
     "bcrypt": "^6.0.0",
     "body-parser": "^2.2.0",
     "concurrently": "^9.2.0",

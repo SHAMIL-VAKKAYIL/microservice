@@ -1,6 +1,7 @@
 const orderModel = require('../../models/order.model');
 const client = require('../grpcProductClient');
 const { promisify } = require('util')
+const axios = require('axios');
 
 const productsByIdAsync = promisify(client.productsById).bind(client);
 
@@ -16,7 +17,6 @@ const resolver = {
         singleOrder: async (_, { id }) => {
             return await orderModel.findById(id)
         }
-
     },
     Mutation: {
         createOrder: async (_, { items }, { user }) => {

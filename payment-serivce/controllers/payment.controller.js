@@ -14,8 +14,8 @@ exports.paymentSecton = async (req, res) => {
             return res.status(400).json({ error: 'Order ID is required' });
         }
 
-        // orderstatus status checking logic can be added here 
         
+        // orderstatus status checking logic can be added here 
         const order = await getOrderByIdAsync({ id: orderId })
 
         console.log(order);
