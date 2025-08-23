@@ -24,7 +24,7 @@ beforeAll(async () => {
 //             }
 //         }`
 //         const res = await request(app).post('/graphql').send({ query }).set('Content-Type', 'application/json')
-//         console.log(res.body.data.orders);
+//         
 //         expect(res.statusCode).toBe(200);
 //         expect(res.body.data.orders).toBeDefined();
 //     })
@@ -45,7 +45,6 @@ beforeAll(async () => {
 //             }
 //         }`
 //         const res = await request(app).post('/graphql').send({ query }).set('Content-Type', 'application/json')
-//         console.log(res.body.data.myOders);
 //         expect(res.statusCode).toBe(200);
 //         expect(res.body.data.myOders).toBeDefined();
 //     })
@@ -68,7 +67,6 @@ beforeAll(async () => {
 //         }`
 
 //         const res = await request(app).post('/graphql').send({ query }).set('Content-Type', 'application/json')
-//         console.log(res.body.data.singleOrder);
 //         expect(res.statusCode).toBe(200);
 //         expect(res.body.data.singleOrder).toBeDefined();
 //     })
@@ -89,7 +87,6 @@ describe('order graphql', () => {
         }`
 
         const res =await request(app).post('/graphql').send({ query }).set('Content-Type', 'application/json')
-        console.log(res.body);
         expect(res.statusCode).toBe(200);
     })
 })
@@ -110,7 +107,6 @@ describe('order graphql', () => {
 //         }`
 
 //         const res = await request(app).post('/graphql').send({ query }).set('Content-Type', 'application/json')
-//         console.log(res.body.data.updateOrder);
 //         expect(res.statusCode).toBe(200);
 //     })
     

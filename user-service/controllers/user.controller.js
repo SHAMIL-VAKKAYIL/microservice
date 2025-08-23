@@ -4,19 +4,15 @@ const userModel = require('../models/user.model')
 exports.getAllUsers = async (req, res) => {
     try {
         const users = await userModel.find().select('-password')
-        console.log(users, 'user');
         res.status(200).json(users)
     } catch (error) {
-        console.log(error);
+                return res.status(500).json({ msg: 'Internal server error', error: error.message });
     }
 }
 
 exports.userProfileUpdate = async (req, res) => {
     const { username, email} = req.body
-    // const userId = req.user._id
-    console.log(req.body);
-    
-    const userId = '6882447be6bea32e6ddcab5e'
+    const userId = req.user._id
     try {
         if (!username && !email) {
             return res.status(400).json('No data provided')

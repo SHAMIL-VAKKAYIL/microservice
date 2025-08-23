@@ -43,18 +43,15 @@ const startServer = async () => {
             }
 
             if (!token) {
-                // token = req.cookies.user
-                token ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ODExYzVkZjNmOWI0NTNkY2U2ZmQ4MiIsImlhdCI6MTc1NTkxMjI3MywiZXhwIjoxNzU2NTE3MDczfQ.-LHJxDsV7AQDhWZBQxxXfUCEzHG2MGfXpqvnoJWVVIE'
+                token = req.cookies.user
             }
             if (!token) return { user: null }
- 
             
 
             try {
             
                 const decoded = jwt.verify(token, process.env.JWT_SCERATE)
-                console.log(decoded);
-                
+            
                 const data = await getUserByIdAsync({ id: decoded.id })
                 
 
@@ -65,9 +62,7 @@ const startServer = async () => {
         }
     }));
 
-    app.listen(5005, () => {
-        console.log('server is runnig on 5005');
-    })
+    app.listen(5005, () => {})
     return app
 }
 

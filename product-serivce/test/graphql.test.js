@@ -25,8 +25,6 @@
 //         }`
 
 //         const res = await request(app).post('/graphql').send({ query }).set('Content-Type', 'application/json');
-//         console.log(res.body.data.products);
-        
 //         expect(res.statusCode).toBe(200);
 //         expect(res.body.data.products).toBeInstanceOf(Array);
 //     })

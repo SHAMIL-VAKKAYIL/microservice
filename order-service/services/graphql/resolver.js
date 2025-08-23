@@ -55,9 +55,6 @@ const resolver = {
                 orderId: order._id
             });
 
-            console.log(paymentResponse);
-            
-
             return order
         },
         updateOrder: async (_, { id, status }) => {

@@ -21,7 +21,6 @@ server.addService(userPackage.UserService.service, {
 
         try {
             const { email } = call.request
-            console.log(email);
 
             const user = await userModel.findOne({ email: email })
 
@@ -39,7 +38,6 @@ server.addService(userPackage.UserService.service, {
                 password: user.password
             })
         } catch (err) {
-            console.error("getUserByEmail error:", err.message);
             callback({
                 code: grpc.status.INTERNAL,
                 message: 'Internal server error',
@@ -60,9 +58,7 @@ server.addService(userPackage.UserService.service, {
     },
     getUserById: async (call, callback) => {
         const { id } = call.request
-        console.log(call);
         
-        console.log(id);
         
 
         const user = await userModel.findById(id).select('-password')
@@ -82,9 +78,8 @@ server.addService(userPackage.UserService.service, {
     try {
         await connectDB();
         server.bindAsync('0.0.0.0:50051', grpc.ServerCredentials.createInsecure(), () => {
-            console.log("User gRPC server running on port 50051");
         });
     } catch (error) {
-        console.error("Failed to connect DB in grpcServer:", error.message);
+        throw new Error('server error')
     }
 })();

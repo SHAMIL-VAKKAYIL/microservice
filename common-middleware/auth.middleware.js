@@ -26,7 +26,7 @@ const userProtectRoute = async (req, res, next) => {
         }
 
         const decoded = jwt.verify(token, process.env.JWT_SCERATE)
-        // console.log("Decoded token ID:", decoded.id);
+    
 
         if (!decoded) {
             return res.status(401).json({ msg: "Token verification failed" })

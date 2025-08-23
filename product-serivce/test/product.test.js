@@ -26,7 +26,7 @@ app.use('/api/product', productRouter);
 describe('pruduct routes',()=>{
     it('should reutrn all product',async()=>{
         const res =await request(app).get('/api/product/getAllProduct')
-        // console.log(res);
+      
         
         expect(res.statusCode).toBe(200)
         expect(res.body).toBeInstanceOf(Array)

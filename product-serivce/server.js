@@ -35,9 +35,7 @@ const startServer = async () => {
     app.use('/api/product', productRouter)
     app.use('/graphql', expressMiddleware(server),);
 
-    app.listen(5003, () => {
-        console.log('server is runnig on 5003');
-    })
+    app.listen(5003, () => {})
 
     return app
 }

@@ -21,6 +21,4 @@ app.use('/api/auth',authRouter)
 
 
 
-app.listen(5001, () => {
-    console.log('server is runnig on 5001');
-})
+app.listen(5001, () => {})

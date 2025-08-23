@@ -12,6 +12,4 @@ connectDB()
 
 app.use('/api/user',userRouter)
 
-app.listen(5004, () => {
-    console.log('server is runnig on 5004');
-})
+app.listen(5004, () => {})

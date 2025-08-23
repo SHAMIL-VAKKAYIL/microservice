@@ -6,7 +6,7 @@ const { userToken } = require("../utils/Token")
 
 
 exports.userSignup = async (req, res) => {
-    console.log(req.body);
+
     const { username, email, password } = req.body
     
     try {
@@ -45,7 +45,6 @@ exports.userSignin = async (req, res) => {
 
         })
     } catch (error) {
-        console.log(error);
         res.status(404).json({ message: "internalError" })
     }
 }
@@ -55,7 +54,6 @@ exports.userCheckAuth = async (req, res) => {
     try {
         res.status(200).json(req.user)
     } catch (error) {
-        console.log('error in checkAuth', error);
         res.status(500).json({ message: 'internal server error' })
 
     }

@@ -36,7 +36,6 @@ server.addService(productPackage.ProductService.service, {
       name: product.name,
       price: product.price,
     };
-    // console.log(orderItem);
     
     
     return callback(null, orderItem);
@@ -46,11 +45,9 @@ server.addService(productPackage.ProductService.service, {
     (async () => {
 
         try {
-            server.bindAsync('0.0.0.0:50058', grpc.ServerCredentials.createInsecure(), () => {
-                console.log("User gRPC server running on port 50058");
-            })
+            server.bindAsync('0.0.0.0:50058', grpc.ServerCredentials.createInsecure(), () => {})
         } catch (error) {
-            console.error("Failed to connect DB in grpcServer:", error.message);
+           throw new Error('server error')
 
         }
     })()

@@ -35,10 +35,10 @@ const grpcstart = async () => {
     try {
         await connectDB()
         server.bindAsync('0.0.0.0:50055', grpc.ServerCredentials.createInsecure(), () => {
-            console.log("Order gRPC server running on port 50055");
+            
         })
     } catch (error) {
-        console.error("Failed to connect DB in grpcServer:", error.message);
+        throw new Error('server error')
     }
 }
 

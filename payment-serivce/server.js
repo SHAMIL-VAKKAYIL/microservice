@@ -18,6 +18,4 @@ app.use(express.json())
 app.use('/api/payment', paymentRoute)
 
 
-app.listen(5002, () => {
-    console.log('server is runnig on 5002');
-})
+app.listen(5002, () => {})

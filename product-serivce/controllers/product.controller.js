@@ -42,7 +42,7 @@ export const addProduct = async (req, res) => {
         // }
 
     } catch (error) {
-        console.log(error);
+        res.status(400).json({ err: 'faild to adding Product' })
 
     }
 }
@@ -52,7 +52,7 @@ export const getAllProduct = async (req, res) => {
         const product = await productModel.find().sort({ _id: -1 })
         res.status(200).json(product)
     } catch (error) {
-        console.log(error);
+res.status(400).json({err:'faild to get all product'})
     }
 }
 
@@ -62,21 +62,19 @@ export const getSinlgeProduct = async (req, res) => {
         const product = await productModel.findById(productId)
         res.status(200).json(product)
     } catch (error) {
-        console.log(error);
+res.status(400).json({err:'faild to get single product'})
     }
 }
 
 export const deleteProduct = async (req, res) => {
     const { id: productId } = req.params
-    console.log(req.params);
-    console.log(productId);
+  
 
     try {
         const data = await productModel.findByIdAndDelete(productId)
-        console.log(data);
 
         res.status(200).json(data)
     } catch (error) {
-        console.log(error);
+res.status(400).json({err:'faild to delete product'})
     }
 }

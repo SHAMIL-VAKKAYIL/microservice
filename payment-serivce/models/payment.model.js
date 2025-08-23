@@ -26,14 +26,14 @@ const paymentSchema = new mongoose.Schema(
     }
 )
 
+const paymentModel = mongoose.model("payment", paymentSchema);
 
-paymentSchema.static.build = (attrs) => {
+paymentModel.build = (attrs) => {
     if (!attrs.orderId || !attrs.stripeId) {
         throw new Error('Missing required fields for payment creation');
     }
     return new paymentModel(attrs);
 }
 
-const paymentModel = mongoose.model("payment", paymentSchema);
 
 module.exports = paymentModel;
