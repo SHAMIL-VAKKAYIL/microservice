@@ -21,9 +21,11 @@ const resolver = {
     Mutation: {
         createOrder: async (_, { items }, { user }) => {
 
+
             const products = await Promise.all(
                 items.map(async (item) => {
                     const data = await productsByIdAsync({ id: item.productId });
+                    
 
                     if (!data) throw new Error('Product not found');
 
@@ -39,7 +41,6 @@ const resolver = {
 
 
             const totalPrice = products.reduce((sum, p) => sum + p.price * p.quantity, 0);
-
             const order = new orderModel({
                 userId: user.id,
                 products,
@@ -48,10 +49,14 @@ const resolver = {
 
             })
 
+
             await order.save()
             const paymentResponse = await axios.post("http://localhost:5002/api/payment/create-payment-section", {
                 orderId: order._id
             });
+
+            console.log(paymentResponse);
+            
 
             return order
         },

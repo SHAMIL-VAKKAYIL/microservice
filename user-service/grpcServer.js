@@ -60,6 +60,10 @@ server.addService(userPackage.UserService.service, {
     },
     getUserById: async (call, callback) => {
         const { id } = call.request
+        console.log(call);
+        
+        console.log(id);
+        
 
         const user = await userModel.findById(id).select('-password')
         if (!user) return callback(new Error('User not found'), null)

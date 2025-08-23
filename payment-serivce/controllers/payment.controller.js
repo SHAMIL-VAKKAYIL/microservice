@@ -1,6 +1,7 @@
 const stripe = require("../config/stripe");
 const paymentModel = require("../models/payment.model");
 const client = require("../services/grpcOrderClient");
+const {promisify} =require('util')
 
 
 const getOrderByIdAsync = promisify(client.getOrderById).bind(client)
@@ -19,17 +20,11 @@ exports.paymentSecton = async (req, res) => {
         const order = await getOrderByIdAsync({ id: orderId })
 
         console.log(order);
-        
-        // getOrderByIdAsync({ id: orderId }, (err, data) => {
-        //     if (err) {
-        //         throw new Error(`Order ${orderId} not found`, null);
-        //     }
-        //     order = data
-        // })
 
         if (order.status === "Cancelled") {
             return res.status(400).json({ error: 'Order is cancelled' });
         }
+console.log(1);
 
         // Logic for creating a payment section
 
@@ -41,12 +36,13 @@ exports.paymentSecton = async (req, res) => {
             confirm: true
 
         })
-
+console.log(2);
         const payment = paymentModel.build({
-            orderId: orderId,
+            orderId: order.id,
             stripeId: charge.id,
             status: charge.status,
         })
+        console.log(3);
         console.log(payment);
         
         await payment.save();

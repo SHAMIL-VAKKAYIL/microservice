@@ -10,7 +10,8 @@ const { expressMiddleware } = require('@apollo/server/express4')
 const typeDefs = require('./services/graphql/schema')
 const resolvers = require('./services/graphql/resolver')
 const connectDB = require('./config/db')
-const getUserByIdAsync = require('../common-middleware/auth.middleware')
+const { getUserByIdAsync } = require('../common-middleware/auth.middleware')
+
 
 dotenv.config()
 
@@ -42,13 +43,20 @@ const startServer = async () => {
             }
 
             if (!token) {
-                token = req.cookies.user
+                // token = req.cookies.user
+                token ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ODExYzVkZjNmOWI0NTNkY2U2ZmQ4MiIsImlhdCI6MTc1NTkxMjI3MywiZXhwIjoxNzU2NTE3MDczfQ.-LHJxDsV7AQDhWZBQxxXfUCEzHG2MGfXpqvnoJWVVIE'
             }
             if (!token) return { user: null }
+ 
+            
 
             try {
+            
                 const decoded = jwt.verify(token, process.env.JWT_SCERATE)
+                console.log(decoded);
+                
                 const data = await getUserByIdAsync({ id: decoded.id })
+                
 
                 return { user: data || null }
             } catch (err) {
@@ -65,4 +73,4 @@ const startServer = async () => {
 
 startServer()
 
-// module.exports = { startServer }
+module.exports = { startServer }

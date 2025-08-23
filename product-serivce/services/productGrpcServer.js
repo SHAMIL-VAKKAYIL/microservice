@@ -36,6 +36,8 @@ server.addService(productPackage.ProductService.service, {
       name: product.name,
       price: product.price,
     };
+    // console.log(orderItem);
+    
     
     return callback(null, orderItem);
   }

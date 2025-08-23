@@ -1,6 +1,6 @@
 const grpc =require('@grpc/grpc-js')
 const protoLoader = require('@grpc/proto-loader')
-const path=requrie('path')
+const path=require('path')
 
 
 const packageDef = protoLoader.loadSync(path.join(__dirname, '../../protos/order.proto'), {})

@@ -1,9 +1,11 @@
 const request = require('supertest')
 const { startServer } = require('../server.js')
+const {grpcstart} =require('../services/grpcOrderserver.js')
 
 let app
 
 beforeAll(async () => {
+    await grpcstart()
     app = await startServer()
 })
 
