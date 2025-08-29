@@ -6,7 +6,9 @@
   "scripts": {
     "test": "NODE_OPTIONS=--experimental-vm-modules pnpm exec jest",
     "dev": "nodemon server.js",
-    "dev:both": "concurrently \"nodemon services/productGrpcServer.js\" \"nodemon server.js\" "
+    "dev:both": "concurrently \"nodemon services/productGrpcServer.js\" \"nodemon server.js\" ",
+    "start": "concurrently \"node services/productGrpcServer.js\" \"node server.js\" "
+
 
   },
   "keywords": [],
