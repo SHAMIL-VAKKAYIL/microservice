@@ -1,7 +1,7 @@
 services:
     auth-service:
         build:
-            context: ./auth-service
+            context: .
             dockerfile:  ./auth-service/Dockerfile
         container_name: auth-service
         ports:
@@ -11,7 +11,7 @@ services:
     
     order-service:
         build: 
-            context: ./order-service
+            context: .
             dockerfile: ./order-service/Dockerfile
         container_name: order-service
         ports:
@@ -22,7 +22,7 @@ services:
     
     payment-service:
         build:
-            context: ./payment-service
+            context: .
             dockerfile: ./payment-service/Dockerfile
         container_name: payment-service
         ports:
@@ -32,7 +32,7 @@ services:
     
     product-service:
         build: 
-            context: ./product-service
+            context: .
             dockerfile: ./product-service/Dockerfile
         container_name: product-service
         ports:
@@ -42,7 +42,7 @@ services:
             - micro
     user-service:
         build: 
-            context: ./user-service
+            context: .
             dockerfile: ./user-service/Dockerfile
         container_name: user-service
         ports:
