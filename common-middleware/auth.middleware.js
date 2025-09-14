@@ -1,5 +1,22 @@
 const jwt = require('jsonwebtoken')
-const client = require('../auth-service/services/userGrpcClient')
+// const client = require('../auth-service/services/userGrpcClient')
+
+const grpc = require('@grpc/grpc-js')
+const portoLoader = require('@grpc/proto-loader')
+const path = require('path')
+
+
+const packageDef = portoLoader.loadSync(path.join(__dirname, '../protos/user.proto'))
+const userProto = grpc.loadPackageDefinition(packageDef)
+const user = userProto.user
+
+const client =new user.UserService(
+    'localhost:50051',
+    grpc.credentials.createInsecure()
+)
+
+module.export =client
+
 const { promisify } = require('util')
 
 
@@ -26,7 +43,7 @@ const userProtectRoute = async (req, res, next) => {
         }
 
         const decoded = jwt.verify(token, process.env.JWT_SCERATE)
-    
+
 
         if (!decoded) {
             return res.status(401).json({ msg: "Token verification failed" })
@@ -42,7 +59,7 @@ const userProtectRoute = async (req, res, next) => {
         next()
 
     } catch (error) {
-       res.status(401).json({ msg: "Invalid Token" });
+        res.status(401).json({ msg: "Invalid Token" });
 
     }
 }
@@ -54,4 +71,4 @@ const adminProtectRoute = async (req, res, next) => {
     next()
 }
 
-module.exports={adminProtectRoute,userProtectRoute,getUserByIdAsync}
+module.exports = { adminProtectRoute, userProtectRoute, getUserByIdAsync }

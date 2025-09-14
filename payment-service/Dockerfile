@@ -8,7 +8,7 @@ COPY payment-service/package.json payment-service/pnpm-lock.yaml ./
 
 RUN pnpm install --frozen-lockfile --prod
 
-COPY order-service ./
+COPY payment-service ./
 
 COPY protos /app/protos
 
